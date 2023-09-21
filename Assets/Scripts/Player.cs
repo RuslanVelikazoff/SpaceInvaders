@@ -60,8 +60,8 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Invader")
-            || other.gameObject.layer == LayerMask.NameToLayer("Missile"))
+        if (other.gameObject.tag == "Invader"
+            || other.gameObject.tag == "Projectile")
         {
             Time.timeScale = 0;
             losePanel.SetActive(true);
