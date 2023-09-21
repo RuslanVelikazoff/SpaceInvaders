@@ -17,10 +17,14 @@ public class Invaders : MonoBehaviour
     public int totalInvaders => this.rows * this.columns;
     public float percentKilled => (float)this.amountKilled / (float)this.totalInvaders;
 
+    public GameObject losePanel;
+
     private Vector3 _direction = Vector3.right;
 
     private void Awake()
     {
+        Time.timeScale = 1;
+
         for (int row = 0; row < this.rows; row++)
         {
             float width = 2f * (this.columns - 1);
@@ -47,9 +51,6 @@ public class Invaders : MonoBehaviour
     private void Update()
     {
         this.transform.position += _direction * this.speed.Evaluate(this.percentKilled) * Time.deltaTime;
-
-        //Vector3 leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
-        //Vector3 rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
 
         foreach (Transform invader in this.transform)
         {
@@ -101,7 +102,8 @@ public class Invaders : MonoBehaviour
 
         if (this.amountKilled >= this.totalInvaders)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 0;
+            losePanel.SetActive(true);
         }
     }
 }
